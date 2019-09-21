@@ -9,6 +9,7 @@
 '''
 
 import time as t
+import random as rand
 
 # ---------- PART 1 ----------
 
@@ -70,7 +71,7 @@ def quicksort_modified(L, low, high):
     while low < high:
         partitionIndex = partition(L, low, high)
 
-        # separetly sort element before partition and after partition
+        # separately sort element before partition and after partition
         quicksort_modified(L, low, partitionIndex - 1)
         low = partitionIndex + 1
 
@@ -303,6 +304,10 @@ def part2():
             print("Invalid! Please choose a valid option.\n")
 
 if __name__ == '__main__':
+    
+    # for testing runtime performance of each algorithm when debugging
+    # main_test_runningtime()
+    
     while (True):
         # primary menu
         print("1. Part 1\n2. Part 2\n3. Exit")
@@ -318,3 +323,22 @@ if __name__ == '__main__':
             break
         else:
             print("Invalid! Please choose a valid option.\n")
+
+# for calculating runtimes of each algorithm over different samples
+
+'''
+def test_runningtime(L):
+    for i in range(len(L)):
+        L[i] = rand.randint(0, 500)
+
+def main_test_runningtime():
+    # size of list
+    L = [0] * 5000;
+    test_runningtime(L)
+
+    start = t.time()
+    select_bubble(L, 2)
+    end = t.time()
+
+    print("Runtime:", round(stop-start, 6))
+'''
