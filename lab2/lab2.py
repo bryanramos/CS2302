@@ -13,17 +13,6 @@ import random as rand
 
 # ---------- PART 1 ----------
 
-def printSuffix(k):
-    # suffix to add after the kth element number
-    if k[-1] == "1":
-        print("st", end="")
-    elif k[-1] == "2":
-        print("nd", end="")
-    elif k[-1] == "3":
-        print("rd", end="")
-    else:
-        print("th", end="")
-
 # bubble sort
 def select_bubble(L, k):
     for i, num in enumerate(L):
@@ -34,7 +23,7 @@ def select_bubble(L, k):
                 select_bubble(L, k)
         except IndexError:
             pass
-    return L, L[k]
+    return L[k]
 
 # take the last element as a pivot, the pivot element is placed in the 
 # correct position, and places all smaller (smaller than pivot) values
@@ -65,7 +54,7 @@ def quicksort(L, low, high):
 
 def select_quick(L, k):
     quicksort(L, 0, len(L) - 1)
-    return L, L[k]
+    return L[k]
 
 def quicksort_modified(L, low, high):
     while low < high:
@@ -77,117 +66,7 @@ def quicksort_modified(L, low, high):
 
 def select_modified_quick(L, k):
     quicksort_modified(L, 0, len(L) - 1)
-    return L, L[k]
-
-# ask the user for len of list, ask for values for list
-# sort using either: bubble sort, quick sort or modified quicksort
-# find kth smallest element in the sorted list
-def part1():
-    numsList = []
-
-    while (True):
-        # ask for len of list and build a list from user input int values
-        length = int(input("Enter desired length of list: "))
-        for i in range(length):
-            # only allow int nums be added to the list
-            try:
-                value = int(input("Enter an integer to add to the list: "))
-                numsList.append(value)
-            except ValueError:
-                print("\nError: Only integer numbers are allowed.\n")
-                return
-        break
-
-    print("\nUnsorted List:", numsList)
-
-    while (True):
-        # sorting menu for Part 1
-        print("1. Bubble Sort\n2. Quicksort\n3. Modified Quicksort\n4. Return to Main Menu")
-        choice = input("Choose the algorithm to run: ")
-
-        # sorting choice switch
-        if choice == "1":
-            # bubble sort
-            k = 0
-            while (True):
-                try:
-                    k = int(input("Enter a value for k: "))
-                    break
-                except: 
-                    print("\nInvalid! Please enter a integer number.\n")
-
-            # k should be less than the len of the list & cannot be less than 0
-            if (k >= len(numsList)) or k < 0:
-                print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
-                continue
-
-            start = t.time()
-            L, numAtIndex = select_bubble(numsList, k)
-            stop = t.time()
-
-            print("\nList sorted with bubble sort:", L)
-            print(k+1, end="")
-            printSuffix(str(k + 1))
-            print(" smallest element is", numAtIndex)
-
-            print("It took", round(stop-start, 6), "seconds to sort.\n")
-        elif choice == "2":
-            # quicksort
-            k = 0
-            while (True):
-                try:
-                    k = int(input("Enter a value for k: "))
-                    break
-                except: 
-                    print("\nInvalid! Please enter a integer number.\n")
-
-            # k should be less than the len of the list & cannot be less than 0
-            if (k >= len(numsList)) or k < 0:
-                print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
-                continue
-
-            start = t.time()
-            L, numAtIndex = select_quick(numsList, k)
-            stop = t.time()
-
-            print("\nList sorted with bubble sort:", L)
-            print(k+1, end="")
-            printSuffix(str(k + 1))
-            print(" smallest element is", numAtIndex)
-
-            print("It took", round(stop-start, 6), "seconds to sort.\n")
-        elif choice == "3":
-            # modified quick sort
-            k = 0
-            while (True):
-                try:
-                    k = int(input("Enter a value for k: "))
-                    break
-                except: 
-                    print("\nInvalid! Please enter a integer number.\n")
-
-            # k should be less than the len of the list & cannot be less than 0
-            if (k >= len(numsList)) or k < 0:
-                print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
-                continue
-
-            start = t.time()
-            L, numAtIndex = select_modified_quick(numsList, k)
-            stop = t.time()
-
-            print("\nList sorted with bubble sort:", L)
-            print(k+1, end="")
-            printSuffix(str(k + 1))
-            print(" smallest element is", numAtIndex)
-
-            print("It took", round(stop-start, 6), "seconds to sort.\n")
-        elif choice == "4":
-            # return to main menu
-            print("")
-            return
-        else:
-            # invalid input
-            print("Invalid! Please choose a valid option.\n")
+    return L[k]
 
 # ---------- PART 2 ----------
 
@@ -210,7 +89,7 @@ def select_quick_stack(L, low, high, k):
             # add in left and right sublists
             stack.append(stackRecord(stackElement.L, stackElement.low, partitionIndex - 1))
             stack.append(stackRecord(stackElement.L, partitionIndex + 1, stackElement.high))
-    return L, L[k]
+    return L[k]
 
 def select_quick_while(L, low, high, k):
     pivot = partition(L, low, high)
@@ -220,125 +99,109 @@ def select_quick_while(L, low, high, k):
             pivot = partition(L, pivot + 1, high)
         elif k < pivot:
             pivot = partition(L, low, pivot - 1)
-    return L, L[pivot]
+    return L[pivot]
 
-def part2():
-    numsList = []
+# ---------- MAIN ----------
 
-    while (True):
-        # ask for len of list and build a list from user input int values
-        length = int(input("Enter desired length of list: "))
-        for i in range(length):
-            # only allow int nums be added to the list
-            try:
-                value = int(input("Enter an integer to add to the list: "))
-                numsList.append(value)
-            except ValueError:
-                print("\nError: Only integer numbers are allowed.\n")
-                return
-        break
-
-    print("\nUnsorted List:", numsList)
-
-    while (True):
-        # sorting menu
-        print("1. Quicksort with Stack\n2. Quicksort Only While Loop\n3. Return to Main Menu")
-        choice = input("Choose the algorithm to run: ")
-
-        if choice == "1":
-            # quicksort with stack
-            k = 0
-            while (True):
-                try:
-                    k = int(input("Enter a value for k: "))
-                    break
-                except: 
-                    print("\nInvalid! Please enter a integer number.\n")
-
-            # k should be less than the len of the list & cannot be less than 0
-            if (k >= len(numsList)) or k < 0:
-                print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
-                continue
-
-            start = t.time()
-            L, numAtIndex = select_quick_stack(numsList, 0, len(numsList) - 1, k)
-            stop = t.time()
-
-            print("\nList sorted with bubble sort:", L)
-            print(k+1, end="")
-            printSuffix(str(k + 1))
-            print(" smallest element is", numAtIndex)
-
-            print("It took", round(stop-start, 6), "seconds to sort.\n")
-        elif choice == "2":
-            # quicksort with while loop
-            k = 0
-            while (True):
-                try:
-                    k = int(input("Enter a value for k: "))
-                    break
-                except: 
-                    print("\nInvalid! Please enter a integer number.\n")
-
-            # k should be less than the len of the list & cannot be less than 0
-            if (k >= len(numsList)) or k < 0:
-                print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
-                continue
-
-            start = t.time()
-            L, numAtIndex = select_quick_while(numsList, 0, len(numsList) - 1, k)
-            stop = t.time()
-
-            print("\nList sorted with bubble sort:", L)
-            print(k+1, end="")
-            printSuffix(str(k + 1))
-            print(" smallest element is", numAtIndex)
-
-            print("It took", round(stop-start, 6), "seconds to sort.\n")
-        elif choice == "3":
-            # return to main menu
-            print("")
-            return
-        else:
-            # invalid input
-            print("Invalid! Please choose a valid option.\n")
+def printSuffix(k):
+    # suffix to add after the kth element number
+    if k[-1] == "1":
+        print("st", end="")
+    elif k[-1] == "2":
+        print("nd", end="")
+    elif k[-1] == "3":
+        print("rd", end="")
+    else:
+        print("th", end="")
 
 if __name__ == '__main__':
-    
-    # for testing runtime performance of each algorithm when debugging
-    # main_test_runningtime()
-    
+
+    # empty list to add random int values to
+    numsList = []
+
+    # ask for len of list and build a list from user input int values
+    length = int(input("Enter desired length of list: "))
+        
+    # add random integer values to list from 0-50
+    for i in range(length):
+        numsList.append(rand.randint(0, 50))
+
+    # lists to use in each sorting operation will have same values as numsList
+    list1 = numsList
+    list2 = numsList
+    list3 = numsList
+    list4 = numsList
+    list5 = numsList
+
+    print("List:", numsList)
+
+    # ask user to the value for k -> must be an integer value
+    k = 0
     while (True):
-        # primary menu
-        print("1. Part 1\n2. Part 2\n3. Exit")
-        choice = input("Choose the part of the lab to execute: ")
-
-        # menu choice switch
-        if choice == "1":
-            part1()
-        elif choice == "2":
-            part2()
-        elif choice == "3":
-            print("Bye thanks for using the program!\n")
+        try:
+            k = int(input("Enter a value for k: "))
             break
-        else:
-            print("Invalid! Please choose a valid option.\n")
+        except: 
+            print("\nInvalid! Please enter an integer number.\n")
 
-# for calculating runtimes of each algorithm over different samples
+    # sort using either: bubble sort, quick sort or modified quicksort
+    # find kth smallest element in the sorted list
 
-'''
-def test_runningtime(L):
-    for i in range(len(L)):
-        L[i] = rand.randint(0, 500)
+    # k should be less than the len of the list & cannot be less than 0
+    if (k >= len(numsList)) or k < 0:
+        print("\nError: Value for k out of bounds. List size:", len(numsList), "\n")
+    else:
+        print("")
 
-def main_test_runningtime():
-    # size of list
-    L = [0] * 5000;
-    test_runningtime(L)
+        # bubble sort
+        start = t.time()
+        numAtIndex = select_bubble(list1, k)
+        stop = t.time()
+        print("Bubble sort:", k+1, end="")
+        printSuffix(str(k + 1))
+        print(" smallest element is", numAtIndex)
+        print("It took", round(stop-start, 6), "seconds to sort and find k.")
 
-    start = t.time()
-    select_bubble(L, 2)
-    end = t.time()
+        print("")
 
-    print("Runtime:", round(stop-start, 6))
-'''
+        # quicksort
+        start = t.time()
+        numAtIndex = select_quick(list2, k)
+        stop = t.time()
+        print("Quicksort:", k+1, end="")
+        printSuffix(str(k + 1))
+        print(" smallest element is", numAtIndex)
+        print("It took", round(stop-start, 6), "seconds to sort and find k.")
+
+        print("")
+
+        # modified quicksort
+        start = t.time()
+        numAtIndex = select_modified_quick(list3, k)
+        stop = t.time()
+        print("Modified Quicksort:", k+1, end="")
+        printSuffix(str(k + 1))
+        print(" smallest element is", numAtIndex)
+        print("It took", round(stop-start, 6), "seconds to sort a find k.")
+
+        print("")
+
+        # quicksort with stack implem.
+        start = t.time()
+        numAtIndex = select_quick_stack(list4, 0, len(list4) - 1, k)
+        stop = t.time()
+        print("Quicksort with Stack:", k+1, end="")
+        printSuffix(str(k + 1))
+        print(" smallest element is", numAtIndex)
+        print("It took", round(stop-start, 6), "seconds to sort a find k.")
+
+        print("")
+
+        # quicksort with a while loop
+        start = t.time()
+        numAtIndex = select_quick_while(list5, 0, len(list5) - 1, k)
+        stop = t.time()
+        print("Quicksort with only a while loop:", k+1, end="")
+        printSuffix(str(k + 1))
+        print(" smallest element is", numAtIndex)
+        print("It took", round(stop-start, 6), "seconds to sort.")
