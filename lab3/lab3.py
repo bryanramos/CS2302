@@ -105,7 +105,9 @@ class List(object):
 
     def HasDuplicates(self):
         t = self.head
-        while t.next is not None:
+        if t is None:
+            return False
+        while t.next is not None and t.next is not None:
             if t.data == t.next.data:
                 return True
             t = t.next
