@@ -1,0 +1,16 @@
+ bear,bear
+ barley,shrimp
+ barley,oat
+ federer,baseball
+ federer,tennis
+ harvard,stanford
+ harvard,utep
+ harvant,ant
+ raven,crow
+ raven,whale
+ spain,france
+ spain,mexico
+ mexico,france
+ mexico,guatemala
+ computer,platypus
+ 
