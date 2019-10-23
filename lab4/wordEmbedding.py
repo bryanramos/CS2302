@@ -7,9 +7,10 @@ class WordEmbedding(object):
 		self.word = word
 		self.emb = np.array(embedding, dtype=np.float32) # For Lab 4, len(embedding=50)
     
-	def __lt__(self, other):
-		# p1 < p2 calls p1.__lt__(p2)
-		if isinstance(other, WordEmbedding):
-			return self.word < other.word
-		elif isinstance(other, str):
-			return self.word < other
+    # rich comparisons
+    # https://portingguide.readthedocs.io/en/latest/comparisons.html
+	def __lt__(self, o):
+		if isinstance(o, WordEmbedding):
+			return self.word < o.word
+		elif isinstance(o, str):
+			return self.word < o
