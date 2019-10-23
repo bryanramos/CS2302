@@ -9,8 +9,10 @@ class WordEmbedding(object):
     
     # rich comparisons
     # https://portingguide.readthedocs.io/en/latest/comparisons.html
-	def __lt__(self, o):
-		if isinstance(o, WordEmbedding):
-			return self.word < o.word
-		elif isinstance(o, str):
-			return self.word < o
+	def __lt__(self, other):
+
+		if isinstance(other, WordEmbedding):
+			return self.word < other.word
+
+		elif isinstance(other, str):
+			return self.word < other
