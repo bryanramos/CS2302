@@ -1,4 +1,17 @@
 
+'''
+Course: CS2302 Data Structures Fall 2019
+Author: Bryan Ramos [88760110]
+Assignment: Lab 5
+Instructor: Dr. Olac Fuentes
+TA: Anindita Nath 
+Last Modified: November 5th 2019
+Purpose: Model the use of hash tables with chaining and hash tables
+with linear probing to store Word Embedding objects using different
+hash functions and analyze their running times to compare them to
+that of trees.
+'''
+
 import os
 import numpy as np
 from htc import HashTableChainLab5
@@ -300,7 +313,7 @@ def writeToSimilaritiesFile(file_name):
 # main method
 if __name__ == "__main__":
 
-    calculateRuntimes()
+    # calculateRuntimes()
 
     # txt file from nlp.stanford.edu
     file_name = "glove.6B.50d.txt"
