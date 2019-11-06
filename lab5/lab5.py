@@ -333,7 +333,7 @@ if __name__ == "__main__":
         "The product of the ascii values of the first and last characters in the string % n",
         "The sum of the ascii values of the characters in the string % n",
         "The recursive formulation h(”,n) = 1; h(S,n) = (ord(s[0]) + 255*h(s[1:],n))% n",
-        "Another function of your choice"]
+        "(The length of the string // 2) % n"]
     H = None # hash table initially null
 
     # catch non-integer input from user
@@ -341,7 +341,7 @@ if __name__ == "__main__":
         # valid input for choice: 1 (Hash Table Chaining) or 2 (Hash Table Probing)
         while choice < 1 or choice > 2:
             print("Choose hash table implementation:\nType 1 for Hash Table Chaining or 2 Hash Table Probing")
-            choice = int(input("Choice: "))
+            choice = int(input("Hash Table Choice: "))
         
         # hash functions from lab instructions
         # valid input for functions: 1, 2, 3, 4, 5, 6
@@ -358,11 +358,11 @@ if __name__ == "__main__":
     # build hash table
     # hash table chaining
     if choice == 1:
-        print("\nBuilding Hash Table Chaining\n")
+        print("\nBuilding Hash Table Chaining")
         runtime, H = buildHashTableChaining(file_name, hashFunction, 10000)
     # hash table probing
     else:
-        print("\nBuilding Hash Table Probing\n")
+        print("\nBuilding Hash Table Probing")
         runtime, H = buildHashTableProbing(file_name, hashFunction, 10000)
 
     file_name2 = "similarities.txt"
