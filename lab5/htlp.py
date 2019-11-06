@@ -74,7 +74,7 @@ class HashTableLP(object):
         for i in range(len(self.item)):
             p = self.h(s + i)
             if self.item[p] == k:
-                return self.item[pos]
+                return self.item[p]
             if self.item[p] == -1:
                 return None
         return None
@@ -83,7 +83,7 @@ class HashTableLP(object):
         if len(s) == 0:
             return 1
         else:
-            return (ord(s[0]) + 255 & self.h2(S[1:],n)) % n
+            return (ord(s[0]) + 255 * self.h2(s[1:],n)) % n
 
     # The recursive formulation h(”,n) = 1; h(S,n) = (ord(s[0]) + 255*h(s[1:],n))% n
     def insert5(self, k):

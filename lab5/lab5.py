@@ -149,6 +149,22 @@ def buildHashTableProbing(file_name, hashFunction, max):
     except IOError:
         print("File {} was not found!".format(file_name))
 
+# build spreadsheet data for lab report
+def calculateRuntimes():
+    f = open("runtimes.csv", "w")
+
+    for r in range(1, 7):
+        runtime, H = buildHashTableChaining("glove.6B.50d.txt", int(r), 10000)
+        totalTime, embeddingsList = embeddings(H, "similarities.txt", int(r))
+        f.write("Hash Function " + str(r) + "," + str(runtime) + "," + str(totalTime) + "\n") 
+    
+    for r in range(1, 7):
+        runtime, H = buildHashTableProbing("glove.6B.50d.txt", int(r), 10000)
+        totalTime, embeddingsList = embeddings(H, "similarities.txt", int(r))
+        f.write("Hash Function " + str(r) + "," + str(runtime) + "," + str(totalTime) + "\n") 
+
+    f.close() # close file to save memory
+
 # retrieve embeddings from the similarities file
 def embeddings(H, file_name, hashFunction):
     # catch file not found exception - in main, there is a condition that guarantees 
@@ -175,8 +191,7 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
 
             # The ascii value (ord(c)) of the first character in the string % n
             if hashFunction == 2:
@@ -188,8 +203,7 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
 
             # The product of the ascii values of the first and last characters in the string % n
             if hashFunction == 3:
@@ -201,8 +215,7 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
 
             # The sum of the ascii values of the characters in the string % n
             if hashFunction == 4:
@@ -214,8 +227,7 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
             
             # The recursive formulation h(”,n) = 1; h(S,n) = (ord(s[0]) + 255*h(s[1:],n))% n
             if hashFunction == 5:
@@ -227,8 +239,7 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
 
             # (The length of the string // 2) % n
             if hashFunction == 6:
@@ -240,9 +251,9 @@ def embeddings(H, file_name, hashFunction):
                     embeddings.append(words)
                 else:
                     embeddings.append([firstWord, secondWord])
-                end = time.time()
-                totaltime += totaltime + (end - start)
+                totaltime = totaltime + (time.time() - start)
         
+        f.close()
         return totaltime, embeddings
 
     except IOError: 
@@ -288,6 +299,9 @@ def writeToSimilaritiesFile(file_name):
 
 # main method
 if __name__ == "__main__":
+
+    calculateRuntimes()
+
     # txt file from nlp.stanford.edu
     file_name = "glove.6B.50d.txt"
 
@@ -328,8 +342,6 @@ if __name__ == "__main__":
     except ValueError:
         print("Invalid input! Provide an integer value.")
 
-    
-
     # build hash table
     # hash table chaining
     if choice == 1:
@@ -338,7 +350,7 @@ if __name__ == "__main__":
     # hash table probing
     else:
         print("\nBuilding Hash Table Probing\n")
-        runtime, H = buildHashTableProbing(file_name, hashFunction, 1000)
+        runtime, H = buildHashTableProbing(file_name, hashFunction, 10000)
 
     file_name2 = "similarities.txt"
     print("\nReading word file to determine similarities\n")
@@ -352,3 +364,4 @@ if __name__ == "__main__":
             print("Similarity [{},{}] = {}".format(element[0].word, element[1].word, similarities(element[0], element[1])))
     
     print("Running time for {} construction: {}".format(hashTableType(H), runtime))
+    print("Running time for {} searching: {}".format(hashTableType(H), totalTime))

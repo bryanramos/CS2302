@@ -38,7 +38,7 @@ class HashTableChainLab5(object):
 
     # The product of the ascii values of the first and last characters in the string % n
     def insert3(self, k):
-        b = self.h(ord(k[0]) * ord(k.word[-1]))
+        b = self.h(ord(k.word[0]) * ord(k.word[-1]))
         if not k in self.bucket[b]:
             self.bucket[b].append(k)
     def find3(self, k):
@@ -60,7 +60,7 @@ class HashTableChainLab5(object):
             self.bucket[b].append(k)
     def find4(self, k):
         s = 0
-        for e in k.word:
+        for e in k:
             s += ord(e)
         b = self.h(s)
         try:
@@ -74,7 +74,7 @@ class HashTableChainLab5(object):
         if len(s) == 0:
             return 1
         else:
-            return (ord(S[0]) + 255 * self.h5(S[1:], N)) % n
+            return (ord(s[0]) + 255 * self.h2(s[1:], n)) % n
     
     # The recursive formulation h(”,n) = 1; h(S,n) = (ord(s[0]) + 255*h(s[1:],n))% n
     def insert5(self, k):
