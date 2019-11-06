@@ -29,7 +29,7 @@ def buildHashTableChaining(file_name, hashFunction, max):
         f = open(file_name, "r", encoding="utf8")
         totaltime = 0
 
-        H = HashTableChainLab5(400009)
+        H = HashTableChainLab5(400000)
 
         lines = 0 # compare to max amount of lines limit
         for line in f:
@@ -100,7 +100,7 @@ def buildHashTableProbing(file_name, hashFunction, max):
         f = open(file_name, "r", encoding="utf8")
         totaltime = 0
 
-        HTLP = HashTableLP(400009)
+        HTLP = HashTableLP(400000)
 
         lines = 0 # compare to max amount of lines limit
         for line in f:
@@ -313,10 +313,45 @@ def writeToSimilaritiesFile(file_name):
 # main method
 if __name__ == "__main__":
 
-    # calculateRuntimes()
-
     # txt file from nlp.stanford.edu
     file_name = "glove.6B.50d.txt"
+
+    # calculateRuntimes()
+
+    # compare running times of hash table with chaining and BST
+
+    '''
+    import lab4_source as lab4
+
+    bst_construct_time = 0
+    btree_construct_time = 0
+    table_construct_time = 0
+
+    # build bst
+    start = time.time()
+    binarySearchTree = lab4.buildBST(file_name)
+    bst_construct_time = time.time() - start
+
+    bst_search_time, bst_embeddings = lab4.getEmbeddings(binarySearchTree, "similarities.txt")
+
+    # build btree
+    start = time.time()
+    bTree = lab4.buildBTree(5, file_name)
+    btree_construct_time = time.time() - start
+
+    btree_search_time, btree_embeddings = lab4.getEmbeddings(bTree, "similarities.txt")
+
+    # build hash table
+
+    start = time.time()
+    table_construct_time, hash_table = buildHashTableChaining(file_name, 3, 10000)
+    table_search_time, embeddings = embeddings(hash_table, "similarities.txt", 3)
+
+    print("BST Runtime Construction: {} Search: {}".format(bst_construct_time, bst_search_time))
+    print("B-Tree Runtime Construction: {} Search: {}".format(btree_construct_time, btree_search_time))
+    print("Hash Table Chaining Runtime Construction: {} Search: {}".format(table_construct_time, table_search_time))
+    print("\n\n\n\n")
+    '''
 
     # check if similarities text file exists
     # if not - open a file containing English words and write to a new file
@@ -378,3 +413,6 @@ if __name__ == "__main__":
     
     print("Running time for {} construction: {}".format(hashTableType(H), runtime))
     print("Running time for {} searching: {}".format(hashTableType(H), totalTime))
+
+
+    
