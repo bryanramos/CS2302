@@ -1,3 +1,14 @@
+'''
+Course: CS2302 Data Structures Fall 2019
+Author: Bryan Ramos [88760110]
+Assignment: Lab 6
+Instructor: Dr. Olac Fuentes
+TA: Anindita Nath 
+Last Modified: November 18th 2019
+Purpose: Implement Adjacency List, Adjacency Matrix and Edge List graph
+representations.
+'''
+
 import graph_AL as graphAL
 import graph_AM as graphAM
 import graph_EL as graphEL
