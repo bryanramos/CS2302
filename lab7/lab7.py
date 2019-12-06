@@ -1,3 +1,14 @@
+'''
+Course: CS2302 Data Structures Fall 2019
+Author: Bryan Ramos [88760110]
+Assignment: Lab 7
+Instructor: Dr. Olac Fuentes
+TA: Anindita Nath 
+Last Modified: December 5th 2019
+Purpose: Implement different kinds of algorithms: randomization, backtracking 
+and  dynamic programming.
+'''
+
 # imports
 import graph_AL as graph
 import numpy as np
